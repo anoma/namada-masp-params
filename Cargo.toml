@@ -1,0 +1,10 @@
+[package]
+name = "namada-masp-params"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+hex-literal = "=0.4.1"
+
+[dev-dependencies]
+blake2 = "=0.10.6"
