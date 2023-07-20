@@ -4,6 +4,10 @@ pub const NAMADA_MASP_SPEND_PARAMS: &[u8] = include_bytes!("masp-spend.params");
 pub const NAMADA_MASP_CONVERT_PARAMS: &[u8] = include_bytes!("masp-convert.params");
 pub const NAMADA_MASP_OUTPUT_PARAMS: &[u8] = include_bytes!("masp-output.params");
 
+pub const NAMADA_MASP_SPEND_PARAMS_SIZE: usize = 49848572;
+pub const NAMADA_MASP_CONVERT_PARAMS_SIZE: usize = 22570940;
+pub const NAMADA_MASP_OUTPUT_PARAMS_SIZE: usize = 16398620;
+
 pub const NAMADA_MASP_SPEND_PARAMS_BLAKE2B_HASH: [u8; 64] = hex!(
     "
     196e7c717f25e16653431559ce2c8816e750a4490f98696e3c031efca37e25e0
@@ -22,6 +26,36 @@ pub const NAMADA_MASP_OUTPUT_PARAMS_BLAKE2B_HASH: [u8; 64] = hex!(
     e22434260b3aa3b049b633a08b008988cbe0d31effc77e2bc09bfab690a23724
     "
 );
+
+#[test]
+fn test_sizes() {
+    let sizes_to_verify = [
+        (
+            "spend",
+            NAMADA_MASP_SPEND_PARAMS,
+            NAMADA_MASP_SPEND_PARAMS_SIZE,
+        ),
+        (
+            "convert",
+            NAMADA_MASP_CONVERT_PARAMS,
+            NAMADA_MASP_CONVERT_PARAMS_SIZE,
+        ),
+        (
+            "output",
+            NAMADA_MASP_OUTPUT_PARAMS,
+            NAMADA_MASP_OUTPUT_PARAMS_SIZE,
+        ),
+    ];
+
+    for (name, params, size) in sizes_to_verify {
+        let actual_size = params.len();
+        println!(
+            "actual size of {} params: {} (expected {})",
+            name, actual_size, size
+        );
+        assert_eq!(actual_size, size);
+    }
+}
 
 #[test]
 fn test_blake2b_hashes() {
