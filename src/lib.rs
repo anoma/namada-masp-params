@@ -1,12 +1,15 @@
 use hex_literal::hex;
 
-pub const NAMADA_MASP_SPEND_PARAMS: &[u8] = include_bytes!("masp-spend.params");
-pub const NAMADA_MASP_CONVERT_PARAMS: &[u8] = include_bytes!("masp-convert.params");
-pub const NAMADA_MASP_OUTPUT_PARAMS: &[u8] = include_bytes!("masp-output.params");
-
 pub const NAMADA_MASP_SPEND_PARAMS_SIZE: usize = 49848572;
 pub const NAMADA_MASP_CONVERT_PARAMS_SIZE: usize = 22570940;
 pub const NAMADA_MASP_OUTPUT_PARAMS_SIZE: usize = 16398620;
+
+pub const NAMADA_MASP_SPEND_PARAMS: [u8; NAMADA_MASP_SPEND_PARAMS_SIZE] =
+    *include_bytes!("masp-spend.params");
+pub const NAMADA_MASP_CONVERT_PARAMS: [u8; NAMADA_MASP_CONVERT_PARAMS_SIZE] =
+    *include_bytes!("masp-convert.params");
+pub const NAMADA_MASP_OUTPUT_PARAMS: [u8; NAMADA_MASP_OUTPUT_PARAMS_SIZE] =
+    *include_bytes!("masp-output.params");
 
 pub const NAMADA_MASP_SPEND_PARAMS_BLAKE2B_HASH: [u8; 64] = hex!(
     "
@@ -32,17 +35,17 @@ fn test_sizes() {
     let sizes_to_verify = [
         (
             "spend",
-            NAMADA_MASP_SPEND_PARAMS,
+            NAMADA_MASP_SPEND_PARAMS.as_slice(),
             NAMADA_MASP_SPEND_PARAMS_SIZE,
         ),
         (
             "convert",
-            NAMADA_MASP_CONVERT_PARAMS,
+            NAMADA_MASP_CONVERT_PARAMS.as_slice(),
             NAMADA_MASP_CONVERT_PARAMS_SIZE,
         ),
         (
             "output",
-            NAMADA_MASP_OUTPUT_PARAMS,
+            NAMADA_MASP_OUTPUT_PARAMS.as_slice(),
             NAMADA_MASP_OUTPUT_PARAMS_SIZE,
         ),
     ];
@@ -64,17 +67,17 @@ fn test_blake2b_hashes() {
     let hashes_to_verify = [
         (
             "spend",
-            NAMADA_MASP_SPEND_PARAMS,
+            NAMADA_MASP_SPEND_PARAMS.as_slice(),
             NAMADA_MASP_SPEND_PARAMS_BLAKE2B_HASH,
         ),
         (
             "convert",
-            NAMADA_MASP_CONVERT_PARAMS,
+            NAMADA_MASP_CONVERT_PARAMS.as_slice(),
             NAMADA_MASP_CONVERT_PARAMS_BLAKE2B_HASH,
         ),
         (
             "output",
-            NAMADA_MASP_OUTPUT_PARAMS,
+            NAMADA_MASP_OUTPUT_PARAMS.as_slice(),
             NAMADA_MASP_OUTPUT_PARAMS_BLAKE2B_HASH,
         ),
     ];
